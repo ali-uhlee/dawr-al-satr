@@ -3,83 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dawr al-Satr Interactive Display</title>
+<title>Dawr al-Satr Interactive Demo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #111;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
     color: white;
+    overflow-x: hidden;
 }
 
 /* Laptop Frame */
 .laptop {
-    max-width: 1000px;
-    margin: 40px auto;
-    background: #222;
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.7);
+    width: 95%;
+    max-width: 1100px;
+    margin: 50px auto;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
     overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.screen {
-    padding: 20px;
-    min-height: 500px;
-}
-
-/* Navigation */
+/* Nav */
 .nav {
     display: flex;
-    background: #000;
+    background: rgba(0,0,0,0.6);
 }
 
 .nav button {
     flex: 1;
-    padding: 15px;
+    padding: 18px;
     border: none;
-    background: #000;
-    color: white;
+    background: transparent;
+    color: #bbb;
+    font-size: 14px;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .nav button:hover {
-    background: #333;
+    color: white;
 }
 
 .nav button.active {
-    background: #444;
+    color: white;
+    border-bottom: 2px solid white;
 }
 
-/* Content */
+/* Screen */
+.screen {
+    padding: 30px;
+    min-height: 500px;
+}
+
+/* Sections */
 .section {
-    display: none;
-    animation: fade 0.5s;
+    position: absolute;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.5s ease;
+    width: 100%;
 }
 
 .section.active {
-    display: block;
-}
-
-@keyframes fade {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Cards */
 .card {
-    background: #333;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 0 25px rgba(255,255,255,0.1);
+}
+
+/* Titles */
+h2 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #ccc;
+}
+
+/* Glow effect */
+.glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
 }
 
 /* Responsive */
-@media(max-width: 700px){
-    .nav {
-        flex-direction: column;
-    }
+@media(max-width:700px){
+    .nav { flex-direction: column; }
 }
 </style>
 </head>
@@ -88,66 +125,69 @@ body {
 
 <div class="laptop">
     <div class="nav">
-        <button onclick="showSection('overview')" class="active">Overview</button>
-        <button onclick="showSection('timeline')">Timeline</button>
-        <button onclick="showSection('figures')">Key Figures</button>
-        <button onclick="showSection('importance')">Importance</button>
+        <button onclick="showSection(0)" class="active">Overview</button>
+        <button onclick="showSection(1)">Timeline</button>
+        <button onclick="showSection(2)">Key Figures</button>
+        <button onclick="showSection(3)">Importance</button>
     </div>
 
     <div class="screen">
+        <div class="glow"></div>
 
-        <div id="overview" class="section active">
+        <div class="section active">
             <h2>Overview</h2>
             <div class="card">
-                Dawr al-Satr means "Period of Concealment" when the Imam was hidden due to political danger. 
-                The Imamate continued through representatives instead of public leadership.
+                Dawr al-Satr refers to a period when the Imam remained hidden due to political threats. 
+                Leadership continued through trusted representatives, maintaining continuity despite danger.
             </div>
         </div>
 
-        <div id="timeline" class="section">
+        <div class="section">
             <h2>Timeline</h2>
             <div class="card">765 CE – Death of Imam Ja'far al-Sadiq</div>
             <div class="card">Late 700s – Concealment begins</div>
-            <div class="card">800s – Expansion of da'wa network</div>
+            <div class="card">800s – Da'wa network expands</div>
             <div class="card">909 CE – Fatimid Caliphate established</div>
         </div>
 
-        <div id="figures" class="section">
+        <div class="section">
             <h2>Key Figures</h2>
-            <div class="card">
-                <b>Imam Ja'far al-Sadiq</b><br>
-                His death led to division and secrecy.
-            </div>
-            <div class="card">
-                <b>Muhammad ibn Ismail</b><br>
-                Associated with beginning of concealment.
-            </div>
-            <div class="card">
-                <b>Ubayd Allah al-Mahdi</b><br>
-                Founded the Fatimid Caliphate.
-            </div>
+            <div class="card"><b>Ja'far al-Sadiq</b> – Foundation of knowledge</div>
+            <div class="card"><b>Muhammad ibn Ismail</b> – Beginning of concealment</div>
+            <div class="card"><b>Ubayd Allah al-Mahdi</b> – Re-emergence and state formation</div>
         </div>
 
-        <div id="importance" class="section">
+        <div class="section">
             <h2>Importance</h2>
-            <div class="card">Preserved the Imamate during danger</div>
-            <div class="card">Built strong global networks</div>
-            <div class="card">Allowed future re-emergence</div>
-            <div class="card">Showed adaptability of leadership</div>
+            <div class="card">Preserved leadership during danger</div>
+            <div class="card">Built global networks</div>
+            <div class="card">Allowed re-emergence</div>
+            <div class="card">Demonstrated adaptability</div>
         </div>
 
     </div>
 </div>
 
 <script>
-function showSection(id) {
-    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-    document.querySelectorAll('.nav button').forEach(btn => btn.classList.remove('active'));
+let current = 0;
+let sections = document.querySelectorAll('.section');
+let buttons = document.querySelectorAll('.nav button');
 
-    document.getElementById(id).classList.add('active');
+function showSection(index){
+    sections.forEach(s => s.classList.remove('active'));
+    buttons.forEach(b => b.classList.remove('active'));
 
-    event.target.classList.add('active');
+    sections[index].classList.add('active');
+    buttons[index].classList.add('active');
+
+    current = index;
 }
+
+/* Auto demo mode (like store displays) */
+setInterval(() => {
+    current = (current + 1) % sections.length;
+    showSection(current);
+}, 7000);
 </script>
 
 </body>
