@@ -3,191 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dawr al-Satr Interactive Demo</title>
+<title>Dawr al-Satr Experience</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top, #1a1a1a, #000);
-    color: white;
-    overflow-x: hidden;
+body{
+    font-family:'Inter',sans-serif;
+    background:#000;
+    color:#fff;
+    overflow-x:hidden;
 }
 
-/* Laptop Frame */
-.laptop {
-    width: 95%;
-    max-width: 1100px;
-    margin: 50px auto;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 80px rgba(0,0,0,0.8);
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
 }
 
-/* Nav */
-.nav {
-    display: flex;
-    background: rgba(0,0,0,0.6);
+.hero h1{
+    font-size:clamp(40px,6vw,80px);
+    font-weight:800;
+    letter-spacing:-2px;
 }
 
-.nav button {
-    flex: 1;
-    padding: 18px;
-    border: none;
-    background: transparent;
-    color: #bbb;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.3s;
+.hero p{
+    margin-top:15px;
+    color:#aaa;
+    max-width:600px;
 }
 
-.nav button:hover {
-    color: white;
+.scroll{
+    position:absolute;
+    bottom:30px;
+    font-size:12px;
+    opacity:0.6;
+    animation:fade 2s infinite;
 }
 
-.nav button.active {
-    color: white;
-    border-bottom: 2px solid white;
+@keyframes fade{
+    0%,100%{opacity:0.2;}
+    50%{opacity:1;}
 }
 
-/* Screen */
-.screen {
-    padding: 30px;
-    min-height: 500px;
+/* PARALLAX GLOW */
+.glow{
+    position:fixed;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle, rgba(255,255,255,0.08), transparent);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
 }
 
-/* Sections */
-.section {
-    position: absolute;
-    opacity: 0;
-    transform: translateX(40px);
-    transition: all 0.5s ease;
-    width: 100%;
+/* SECTIONS */
+.section{
+    min-height:100vh;
+    padding:80px 10%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
-.section.active {
-    position: relative;
-    opacity: 1;
-    transform: translateX(0);
+h2{
+    font-size:40px;
+    margin-bottom:20px;
 }
 
-/* Cards */
-.card {
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(15px);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 15px 0;
-    transition: 0.3s;
-    border: 1px solid rgba(255,255,255,0.1);
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
 }
 
-.card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 0 25px rgba(255,255,255,0.1);
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    padding:20px;
+    transition:0.4s;
+    border:1px solid rgba(255,255,255,0.1);
 }
 
-/* Titles */
-h2 {
-    font-weight: 600;
-    margin-bottom: 10px;
+.card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
 }
 
-p {
-    color: #ccc;
+/* TIMELINE */
+.timeline{
+    position:relative;
+    margin-top:30px;
 }
 
-/* Glow effect */
-.glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
-    top: -100px;
-    right: -100px;
-    pointer-events: none;
+.timeline::before{
+    content:'';
+    position:absolute;
+    left:50%;
+    top:0;
+    width:2px;
+    height:100%;
+    background:#444;
 }
 
-/* Responsive */
-@media(max-width:700px){
-    .nav { flex-direction: column; }
+.event{
+    position:relative;
+    width:50%;
+    padding:20px;
+}
+
+.event:nth-child(odd){
+    left:0;
+    text-align:right;
+}
+
+.event:nth-child(even){
+    left:50%;
+}
+
+.event::before{
+    content:'';
+    position:absolute;
+    top:20px;
+    width:12px;
+    height:12px;
+    background:white;
+    border-radius:50%;
+}
+
+.event:nth-child(odd)::before{
+    right:-6px;
+}
+
+.event:nth-child(even)::before{
+    left:-6px;
+}
+
+/* FADE IN */
+.hidden{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
 }
 </style>
 </head>
 
 <body>
 
-<div class="laptop">
-    <div class="nav">
-        <button onclick="showSection(0)" class="active">Overview</button>
-        <button onclick="showSection(1)">Timeline</button>
-        <button onclick="showSection(2)">Key Figures</button>
-        <button onclick="showSection(3)">Importance</button>
+<div class="glow" id="glow"></div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Dawr al-Satr</h1>
+    <p>The hidden era that preserved the Imamate through secrecy, strategy, and resilience.</p>
+    <div class="scroll">Scroll to explore ↓</div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="section hidden">
+    <h2>Overview</h2>
+    <div class="cards">
+        <div class="card">Dawr al-Satr means “Period of Concealment,” when the Imam remained hidden.</div>
+        <div class="card">Leadership continued through trusted representatives.</div>
+        <div class="card">The Imamate remained active, not absent.</div>
     </div>
+</section>
 
-    <div class="screen">
-        <div class="glow"></div>
-
-        <div class="section active">
-            <h2>Overview</h2>
-            <div class="card">
-                Dawr al-Satr refers to a period when the Imam remained hidden due to political threats. 
-                Leadership continued through trusted representatives, maintaining continuity despite danger.
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Timeline</h2>
-            <div class="card">765 CE – Death of Imam Ja'far al-Sadiq</div>
-            <div class="card">Late 700s – Concealment begins</div>
-            <div class="card">800s – Da'wa network expands</div>
-            <div class="card">909 CE – Fatimid Caliphate established</div>
-        </div>
-
-        <div class="section">
-            <h2>Key Figures</h2>
-            <div class="card"><b>Ja'far al-Sadiq</b> – Foundation of knowledge</div>
-            <div class="card"><b>Muhammad ibn Ismail</b> – Beginning of concealment</div>
-            <div class="card"><b>Ubayd Allah al-Mahdi</b> – Re-emergence and state formation</div>
-        </div>
-
-        <div class="section">
-            <h2>Importance</h2>
-            <div class="card">Preserved leadership during danger</div>
-            <div class="card">Built global networks</div>
-            <div class="card">Allowed re-emergence</div>
-            <div class="card">Demonstrated adaptability</div>
-        </div>
-
+<!-- TIMELINE -->
+<section class="section hidden">
+    <h2>Timeline</h2>
+    <div class="timeline">
+        <div class="event">765 CE – Ja'far al-Sadiq passes away</div>
+        <div class="event">Late 700s – Concealment begins</div>
+        <div class="event">800s – Da'wa network expands</div>
+        <div class="event">909 CE – Fatimid Caliphate established</div>
     </div>
-</div>
+</section>
+
+<!-- FIGURES -->
+<section class="section hidden">
+    <h2>Key Figures</h2>
+    <div class="cards">
+        <div class="card"><b>Ja'far al-Sadiq</b><br>Foundation of knowledge</div>
+        <div class="card"><b>Muhammad ibn Ismail</b><br>Beginning of concealment</div>
+        <div class="card"><b>Ubayd Allah al-Mahdi</b><br>Re-emergence</div>
+    </div>
+</section>
+
+<!-- IMPORTANCE -->
+<section class="section hidden">
+    <h2>Importance</h2>
+    <div class="cards">
+        <div class="card">Preserved leadership under threat</div>
+        <div class="card">Built global networks</div>
+        <div class="card">Enabled re-emergence</div>
+        <div class="card">Showed adaptability</div>
+    </div>
+</section>
 
 <script>
-let current = 0;
-let sections = document.querySelectorAll('.section');
-let buttons = document.querySelectorAll('.nav button');
 
-function showSection(index){
-    sections.forEach(s => s.classList.remove('active'));
-    buttons.forEach(b => b.classList.remove('active'));
+/* SCROLL ANIMATIONS */
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('show');
+        }
+    });
+});
 
-    sections[index].classList.add('active');
-    buttons[index].classList.add('active');
+document.querySelectorAll('.hidden').forEach(el=>observer.observe(el));
 
-    current = index;
-}
+/* MOUSE PARALLAX */
+const glow = document.getElementById('glow');
 
-/* Auto demo mode (like store displays) */
-setInterval(() => {
-    current = (current + 1) % sections.length;
-    showSection(current);
-}, 7000);
+document.addEventListener('mousemove', e=>{
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+});
+
 </script>
 
 </body>
